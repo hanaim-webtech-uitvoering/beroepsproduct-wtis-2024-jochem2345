@@ -16,3 +16,29 @@ function menuItemsNaarHtmlTable($menu) {
 
     return $menuHtml;
 }
+
+function bestellingenVanClientNaarHtml($bestellingen) {
+    $bestellingenHTML = "<table>";
+
+    $bestellingenHTML .= "<tr><th>Bestelnummer</th><th>Datum en tijd</th><th>Status</th><th>Producten met aantal</th></tr>";
+
+    foreach ($bestellingen as $bestelling) {
+        $bestelnummer = $bestelling['order_id'];
+        $datetime = $bestelling['datetime'];
+        $producten = $bestelling['products'];
+        $statusnumber = $bestelling['status'];
+
+        $status = match (true) {
+            $statusnumber == 1 => "Bereiden",
+            $statusnumber == 2 => "In de oven",
+            $statusnumber == 3 => "Klaar",
+        };
+
+
+        $bestellingenHTML .= "<tr><td>$bestelnummer</td><td>$datetime</td><td>$status</td><td>$producten</td></tr>";
+    }
+
+    $bestellingenHTML .= "</table>";
+
+    return $bestellingenHTML;
+}

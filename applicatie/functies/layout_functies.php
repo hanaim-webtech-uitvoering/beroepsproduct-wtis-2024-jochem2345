@@ -1,6 +1,39 @@
 <?php
 
-function maakHtmlHead($titel = 'Pizzeria Sole Machina 🍕') {
+function maakHtmlHead($titel = 'Pizzeria Sole Machina 🍕', $styling = '') {
+    $style = "<style>";
+
+    $style .= <<<CSS
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-family: Arial, sans-serif;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    CSS;
+
+    $style .= $styling;
+
+    $style .= "</style>";
+
+
+
+
     echo <<<HTML
         <!DOCTYPE html>
         <html lang="nl">
@@ -9,6 +42,7 @@ function maakHtmlHead($titel = 'Pizzeria Sole Machina 🍕') {
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>$titel</title>
+        $style
         </head>
         <body>
     HTML;

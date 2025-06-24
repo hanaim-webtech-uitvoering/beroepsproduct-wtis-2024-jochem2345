@@ -14,6 +14,6 @@ if (!isset($_SESSION['rol'])) {
 }
 maakHeader($_SESSION['rol']);
 
-echo $menuHtml;
+echo "<h2>Menu</h2>" . $menuHtml;
 
 maakFooter();
