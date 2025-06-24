@@ -12,6 +12,6 @@ $bestelnummer = $_GET['bestelnummer'];
 $bestellingDetails = haalDetailsVanBestellingOp($bestelnummer);
 $detailsHTML = detailsNaarHtml($bestellingDetails);
 
-echo "<h2>Detailoverzicht van bestelling $bestelnummer</h2>" . $detailsHTML;
+echo $detailsHTML;
 
 maakFooter();

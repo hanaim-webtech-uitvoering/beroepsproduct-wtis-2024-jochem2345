@@ -20,12 +20,13 @@ function menuItemsNaarHtmlTable($menu) {
 function bestellingenVanClientNaarHtml($bestellingen) {
     $bestellingenHTML = "<table>";
 
-    $bestellingenHTML .= "<tr><th>Bestelnummer</th><th>Datum en tijd</th><th>Status</th><th>Producten met aantal</th></tr>";
+    $bestellingenHTML .= "<tr><th>Bestelnummer</th><th>Datum en tijd</th><th>Status</th><th>Producten met aantal</th><th>Kosten</th></tr>";
 
     foreach ($bestellingen as $bestelling) {
         $bestelnummer = $bestelling['order_id'];
         $datetime = (new DateTime($bestelling['datetime']))->format('Y-m-d H:i');
         $producten = $bestelling['products'];
+        $kosten = $bestelling['costs'];
         $statusnumber = $bestelling['status'];
 
         $status = match (true) {
@@ -35,7 +36,7 @@ function bestellingenVanClientNaarHtml($bestellingen) {
         };
 
 
-        $bestellingenHTML .= "<tr><td>$bestelnummer</td><td>$datetime</td><td>$status</td><td>$producten</td></tr>";
+        $bestellingenHTML .= "<tr><td>$bestelnummer</td><td>$datetime</td><td>$status</td><td>$producten</td><td>&euro;$kosten</td></tr>";
     }
 
     $bestellingenHTML .= "</table>";
@@ -88,7 +89,64 @@ function alleBestellingenNaarHtml($bestellingen) {
 }
 
 function detailsNaarHtml($bestelling) {
-    $detailsHTML = '';
+    $bestelnummer = $bestelling[0]['order_id'];
+    $klant = $bestelling[0]['client_name'];
+    $klantgb = $bestelling[0]['client_username'];
+    if (!$klantgb) {
+        $klantgb = 'Geen';
+    }
+    $datetime = (new DateTime($bestelling[0]['datetime']))->format('Y-m-d H:i');
+    $medewerker = $bestelling[0]['personnel_username'];
+    $producten = $bestelling[0]['products'];
+    $kosten = $bestelling[0]['costs'];
+    $adres = $bestelling[0]['address'];
     
-    return $detailsHTML;
+    $statusnumber = $bestelling[0]['status'];
+    $status = match (true) {
+        $statusnumber == 1 => "Bereiden",
+        $statusnumber == 2 => "In de oven",
+        $statusnumber == 3 => "Klaar",
+        default => "Onbekend",
+    };
+
+    $productenArray = array_map('trim', explode(',', $producten)); // ["Coca Cola - 3", "Margherita Pizza - 2"]
+
+    $productenGesplitst = [];
+    foreach ($productenArray as $product) {
+        $delen = explode(' - ', $product);
+        if (count($delen) === 2) {
+            $productenGesplitst[] = [
+                'naam' => $delen[0],
+                'aantal' => $delen[1],
+            ];
+        }
+    }
+
+    // Bouw HTML op als string, let op htmlspecialchars voor veiligheid
+    $html = "<h2>Detailoverzicht van bestelling " . htmlspecialchars($bestelnummer) . "</h2>";
+
+    $html .= "<p><strong>Klantnaam:</strong> " . htmlspecialchars($klant) . "</p>";
+    $html .= "<p><strong>Gebruikersnaam:</strong> " . htmlspecialchars($klantgb) . "</p>";
+    $html .= "<p><strong>Medewerker:</strong> " . htmlspecialchars($medewerker) . "</p>";
+    $html .= "<p><strong>Datum & Tijd:</strong> " . htmlspecialchars($datetime) . "</p>";
+    $html .= "<p><strong>Status:</strong> " . htmlspecialchars($status) . "</p>";
+    $html .= "<p><strong>Adres:</strong> " . htmlspecialchars($adres) . "</p>";
+    $html .= "<p><strong>Totale kosten:</strong> &euro;" . number_format($kosten, 2, ',', '.') . "</p>";
+
+    $html .= "<h3>Bestelde producten</h3>";
+    $html .= "<table>";
+    $html .= "<thead><tr><th>Productnaam</th><th>Aantal</th></tr></thead>";
+    $html .= "<tbody>";
+
+    foreach ($productenGesplitst as $product) {
+        $html .= "<tr>";
+        $html .= "<td>" . htmlspecialchars($product['naam']) . "</td>";
+        $html .= "<td>" . htmlspecialchars($product['aantal']) . "</td>";
+        $html .= "</tr>";
+    }
+
+    $html .= "</tbody></table>";
+
+    return $html;
 }
+
