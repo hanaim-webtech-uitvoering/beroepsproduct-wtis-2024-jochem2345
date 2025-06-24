@@ -1,14 +1,17 @@
 <?php
 session_start();
+require_once '../data/data_functies.php';
+require_once '../functies/view_functies.php';
 require_once '../functies/layout_functies.php';
 
 maakHtmlHead('Detailoverzicht');
 maakHeader($_SESSION['rol']);
 
-$bestellingNummer = '';
+$bestelnummer = $_GET['bestelnummer'];
 
-echo "<h2>Detailoverzicht van bestelling $bestellingNummer</h2>";
-?>
-<h2>Detailoverzicht van bestelling</h2>
-<?php
+$bestellingDetails = haalDetailsVanBestellingOp($bestelnummer);
+$detailsHTML = detailsNaarHtml($bestellingDetails);
+
+echo "<h2>Detailoverzicht van bestelling $bestelnummer</h2>" . $detailsHTML;
+
 maakFooter();

@@ -1,10 +1,25 @@
 <?php
 session_start();
+require_once '../data/data_functies.php';
+require_once '../functies/view_functies.php';
 require_once '../functies/layout_functies.php';
 
 maakHtmlHead('Bestellingsoverzicht');
 maakHeader($_SESSION['rol']);
 
-echo '<h2>Dit is een bestellingsoverzicht pagina</h2>';
+$bestellingen = haalAlleBestellingenOp();
+$alleBestellingenHtml = alleBestellingenNaarHtml($bestellingen);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $bestelnummer = $_POST["bestelnummer"];
+    $nieuweStatus = $_POST["status"];
+
+    statusWijzigen($bestelnummer, $nieuweStatus);
+    header("Refresh:0");
+}
+
+echo '<h2>Bestellingsoverzicht</h2>';
+
+echo $alleBestellingenHtml;
 
 maakFooter();

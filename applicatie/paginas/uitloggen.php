@@ -3,4 +3,4 @@ if (!isset($_SESSION)) {
     session_start();
 }
 session_destroy();
-header('Location: /paginas/menu.php');
+header('Location: /paginas/login.php');
