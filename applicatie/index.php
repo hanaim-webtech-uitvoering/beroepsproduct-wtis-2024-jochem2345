@@ -17,3 +17,7 @@
     Een voorbeeld van een pagina die gegevens uit de database haalt vind je hier: <a href="componist-aantalstukken.php">http://<?=$_SERVER['HTTP_HOST']?>/componist-aantalstukken.php</a>
 </body>
 </html>
+
+<?php
+header("Location: paginas/menu.php");
+

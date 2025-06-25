@@ -4,6 +4,8 @@ require_once '../data/bestelling_data.php';
 require_once '../functies/view_functies.php';
 require_once '../functies/layout_functies.php';
 
+controleerRol('Personnel');
+
 maakHtmlHead('Detailoverzicht');
 maakHeader($_SESSION['rol']);
 

@@ -56,40 +56,47 @@ function maakHeader($rol = 'gast') {
         $gebruiker = $_SESSION['voornaam'];
     }
 
-    if ($rol === 'Personnel') {
-        $gebruiker = 'medewerker ' . $gebruiker;
-        $navigatieHtml = <<<HTML
-            <nav>
-                <ul>
-                    <li><a href="menu.php">Menu</a></li>
-                    <li><a href="profiel.php">Profiel</a></li>
-                    <li><a href="bestellingsoverzicht.php">Bestellingsoverzicht</a></li>
-                    <li><a href="uitloggen.php">Uitloggen</a></li>
-                </ul>
-            </nav>
-        HTML;
-    } elseif ($rol === 'Client') {
-        $gebruiker = 'klant ' . $gebruiker;
-        $navigatieHtml = <<<HTML
-            <nav>
-                <ul>
-                    <li><a href="menu.php">Menu</a></li>
-                    <li><a href="profiel.php">Profiel</a></li>
-                    <li><a href="uitloggen.php">Uitloggen</a></li>
-                </ul>
-            </nav>
-        HTML;
-    } elseif ($rol === 'gast') {
-        $gebruiker = 'gast';
-        $navigatieHtml = <<<HTML
-            <nav>
-                <ul>
-                    <li><a href="menu.php">Menu</a></li>
-                    <li><a href="login.php">Inloggen</a></li>
-                </ul>
-            </nav>
-        HTML;
+    switch ($rol) {
+        case 'Personnel':
+            $gebruiker = 'medewerker ' . $gebruiker;
+            $navigatieHtml = <<<HTML
+                <nav>
+                    <ul>
+                        <li><a href="menu.php">Menu</a></li>
+                        <li><a href="profiel.php">Profiel</a></li>
+                        <li><a href="bestellingsoverzicht.php">Bestellingsoverzicht</a></li>
+                        <li><a href="uitloggen.php">Uitloggen</a></li>
+                    </ul>
+                </nav>
+            HTML;
+            break;
+
+        case 'Client':
+            $gebruiker = 'klant ' . $gebruiker;
+            $navigatieHtml = <<<HTML
+                <nav>
+                    <ul>
+                        <li><a href="menu.php">Menu</a></li>
+                        <li><a href="profiel.php">Profiel</a></li>
+                        <li><a href="uitloggen.php">Uitloggen</a></li>
+                    </ul>
+                </nav>
+            HTML;
+            break;
+
+        case 'gast':
+            $gebruiker = 'gast';
+            $navigatieHtml = <<<HTML
+                <nav>
+                    <ul>
+                        <li><a href="menu.php">Menu</a></li>
+                        <li><a href="login.php">Inloggen</a></li>
+                    </ul>
+                </nav>
+            HTML;
+            break;
     }
+
 
     echo <<<HTML
         <header>
@@ -109,4 +116,10 @@ function maakFooter() {
         </body>
         </html>
     HTML;
+}
+
+function controleerRol($rol) {
+    if ($_SESSION['rol'] !== $rol) {
+        header("Location: menu.php");
+    }
 }
