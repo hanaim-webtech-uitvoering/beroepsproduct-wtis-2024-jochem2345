@@ -18,8 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("Refresh:0");
 }
 
-echo '<h2>Bestellingsoverzicht</h2>';
-
-echo $alleBestellingenHtml;
+echo "<h2>Bestellingsoverzicht</h2>" . $alleBestellingenHtml;
 
 maakFooter();

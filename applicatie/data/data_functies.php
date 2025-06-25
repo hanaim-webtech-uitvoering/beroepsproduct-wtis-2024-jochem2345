@@ -4,11 +4,17 @@ require_once 'db_connectie.php';
 function haalAlleMenuItemsOp() {
   $db = maakVerbinding();
 
-  $query = 'SELECT name, price, type_id FROM Product';
+  $query = "
+    SELECT name, price, type_id, STRING_AGG(ingredient_name, ', ') as ingredients 
+    FROM Product p 
+    LEFT JOIN Product_Ingredient pi ON p.name = pi.product_name 
+    GROUP BY name, price, type_id
+    ORDER BY type_id
+  ";
+  $stmt = $db->prepare($query);
+  $stmt->execute();
 
-  $data = $db->query($query);
-
-  return $data->fetchAll(PDO::FETCH_ASSOC);
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function haalBestellingVanClientOp($gebruikersnaam) {
@@ -66,3 +72,5 @@ function statusWijzigen($bestelnummer, $status) {
     ':order_id' => $bestelnummer
   ]);
 }
+
+// function plaatsBestelling

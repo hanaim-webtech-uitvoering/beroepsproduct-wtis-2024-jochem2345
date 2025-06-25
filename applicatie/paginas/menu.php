@@ -3,6 +3,7 @@ session_start();
 require_once '../data/data_functies.php';
 require_once '../functies/view_functies.php';
 require_once '../functies/layout_functies.php';
+require_once '../functies/winkelmand_functies.php';
 
 $menu = haalAlleMenuItemsOp();
 $menuHtml = menuItemsNaarHtmlTable($menu);
@@ -14,6 +15,8 @@ if (!isset($_SESSION['rol'])) {
 }
 maakHeader($_SESSION['rol']);
 
-echo "<h2>Menu</h2>" . $menuHtml;
+toevoegenAanWinkelmand();
+
+echo "<h2>Menu</h2>" . $menuHtml . "<h3><a href='winkelmand.php'>Naar winkelmand</a></h3>";
 
 maakFooter();

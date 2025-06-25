@@ -1,20 +1,75 @@
 <?php
+
+use Dom\HTMLElement;
+
 function menuItemsNaarHtmlTable($menu) {
     $menuHtml = "<table>";
 
-    $menuHtml .= "<tr><th>Naam</th><th>Prijs</th><th>Type</th></tr>";
+    $menuHtml .= "<tr><th>Naam</th><th>Prijs</th><th>Type</th><th>Ingrediënten</th><th>Toevoegen</th></tr>";
 
     foreach ($menu as $item) {
         $naam = $item['name'];
         $prijs = $item['price'];
         $type = $item['type_id'];
+        $ingredienten = $item['ingredients'];
 
-        $menuHtml .= "<tr><td>$naam</td><td>$prijs</td><td>$type</td></tr>";
+        $menuHtml .= "<tr><td>$naam</td><td>$prijs</td><td>$type</td><td>$ingredienten</td>";
+
+        $menuHtml .= "
+                <td>
+                    <form action='' method='POST' style='display:inline;'>
+                        <input type='hidden' name='product' value='" . htmlspecialchars($naam) . "'>
+                        <input type='hidden' name='prijs' value='" . htmlspecialchars($prijs) . "'>
+                        <button type='submit' name='toevoegen'>Toevoegen aan winkelmand</button>
+                    </form>
+                </td>
+            </tr>
+        ";
     }
 
     $menuHtml .= "</table>";
 
     return $menuHtml;
+}
+
+function winkelmandNaarHtml() {
+    $totaleKosten = 0;
+
+
+    if (isset($_SESSION['winkelmand'])) {
+        $winkelmandHTML = "<table>";
+
+        $winkelmandHTML .= "<tr><th>Product</th><th>Aantal</th><th>Kosten</th><th>Verwijderen</th></tr>";
+
+        foreach ($_SESSION['winkelmand'] as $item => $waarde) {
+            $aantal = $waarde['aantal'];
+            $prijs = $waarde['prijs'];
+            $totaleKosten += $prijs;
+            $individuelePrijs = $prijs / $aantal;
+
+            $winkelmandHTML .= "<tr><td>$item</td><td>$aantal</td><td>&euro;" . number_format($prijs, 2) . "</td>";
+
+            $winkelmandHTML .= "
+                    <td>
+                        <form action='' method='POST' style='display:inline;'>
+                            <input type='hidden' name='product' value='" . htmlspecialchars($item) . "'>
+                            <input type='hidden' name='prijs' value='" . htmlspecialchars($individuelePrijs) . "'>
+                            <button type='submit' name='toevoegen'>Verwijder van winkelmand</button>
+                        </form>
+                    </td>
+                </tr>
+            ";
+        }
+
+        $winkelmandHTML .= "</table>";
+    } else {
+        $winkelmandHTML = "<a href='menu.php'>Winkelmand is leeg, ga naar het menu om producten toe te voegen.</a>";
+    }
+
+
+    $winkelmandHTML .= "<p><strong>Totale kosten:</strong> &euro;" . number_format($totaleKosten, 2, ',', '.') . "</p>";
+
+    return $winkelmandHTML;
 }
 
 function bestellingenVanClientNaarHtml($bestellingen) {
@@ -122,7 +177,6 @@ function detailsNaarHtml($bestelling) {
         }
     }
 
-    // Bouw HTML op als string, let op htmlspecialchars voor veiligheid
     $html = "<h2>Detailoverzicht van bestelling " . htmlspecialchars($bestelnummer) . "</h2>";
 
     $html .= "<p><strong>Klantnaam:</strong> " . htmlspecialchars($klant) . "</p>";
