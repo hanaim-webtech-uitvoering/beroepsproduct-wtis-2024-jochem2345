@@ -51,6 +51,8 @@ function inlogAfhandelen() {
             if ($account /*&& $wachtwoordKlopt*/) {
                 $_SESSION['gebruikersnaam'] = $account['username'];
                 $_SESSION['voornaam'] = $account['first_name'];
+                $_SESSION['achternaam'] = $account['last_name'];
+                $_SESSION['adres'] = $account['address'];
                 $_SESSION['rol'] = $account['role'];
                 header('Location: /paginas/menu.php');
                 exit;

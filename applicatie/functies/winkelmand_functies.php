@@ -1,4 +1,6 @@
 <?php
+require_once '../data/bestelling_data.php';
+
 function toevoegenAanWinkelmand() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product']) && isset($_POST['prijs'])) {
         $product = $_POST['product'];
@@ -24,15 +26,17 @@ function bestellingAfhandelen() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['naam']) && isset($_POST['adres'])) {
         $naam = $_POST['naam'];
         $adres = $_POST['adres'];
-        $errors = [];
+        $message = [];
 
         if (isset($_SESSION['winkelmand'])) {
-
+            $message[] = 'Bedankt voor uw bestelling, uw bestelnummer is ' . plaatsBestelling($naam, $adres) . '.';
+            unset($_SESSION['winkelmand']);
+            header("Location: menu.php");
         } else {
-            $errors[] = 'Je kan geen bestelling maken zonder producten.';
+            $message[] = 'Je kan geen bestelling maken zonder producten.';
         }
 
-        return $errors;
+        return $message;
     }
 }
 

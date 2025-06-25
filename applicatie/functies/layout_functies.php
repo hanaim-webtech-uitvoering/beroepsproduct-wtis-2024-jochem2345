@@ -62,6 +62,7 @@ function maakHeader($rol = 'gast') {
             <nav>
                 <ul>
                     <li><a href="menu.php">Menu</a></li>
+                    <li><a href="profiel.php">Profiel</a></li>
                     <li><a href="bestellingsoverzicht.php">Bestellingsoverzicht</a></li>
                     <li><a href="uitloggen.php">Uitloggen</a></li>
                 </ul>
