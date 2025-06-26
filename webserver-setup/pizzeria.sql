@@ -84,6 +84,8 @@ ALTER TABLE [Pizza_Order_Product] ADD FOREIGN KEY ([product_name]) REFERENCES [P
 
 -- -- Insert statements for 20 users with realistic names
 INSERT INTO [User] (username, [password], first_name, last_name, [role]) VALUES
+('medewerker', '$2y$10$D65J8Pq/qNbzsVOZArhzOuWWtTHSz8lu71mlbSCo9FQ7FigkHgvR6', 'Mede', 'Werker', 'Personnel'),
+('klant', '$2y$10$rjfjqpmpqBTmKnWo72wqH.jkKqdF7efTdM8ZBgsITmQpesKc1UFYW', 'Kla', 'Ant', 'Client'),
 ('jdoe', 'wachtwoord', 'John', 'Doe', 'Client'),
 ('mvermeer', 'wachtwoord', 'Maria', 'Vermeer', 'Client'),
 ('rdeboer', 'wachtwoord', 'Rik', 'de Boer', 'Personnel'),

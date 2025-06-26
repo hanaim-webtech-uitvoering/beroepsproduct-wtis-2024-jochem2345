@@ -1,3 +1,8 @@
+# TESTACCOUNTS !!BELANGRIJK!!
+
+Aangezien ik niet zeker wist of jullie al gehashde wachtwoorden hebben in een bestaande database of niet heb ik 2 accounts toegevoegd aan de pizzeria.sql file.
+De gebruikersnaam voor deze accounts zijn 'klant' en 'medewerker' en voor beide is dit het wachtwoord: `Abc123!@#`
+
 # WT-IS: Docker webserver met database
 
 Deze omgeving maakt een database server en een web server aan gebaseerd
@@ -5,15 +10,15 @@ op [Docker](https://www.docker.com/). Bij het opstarten van de omgeving
 wordt automatisch een aantal databases aangemaakt en gevuld met
 voorbeelddata.
 
-***Let op, deze omgeving is specifiek bedoeld als educatieve omgeving.
+**_Let op, deze omgeving is specifiek bedoeld als educatieve omgeving.
 Deze omgeving kan niet gebruikt worden voor productie-omgevingen,
 hiervoor zullen eerst nog een groot aantal beveilingsaspecten opgelost
 moeten worden (wachtwoorden zijn eenvoudig te achterhalen, er wordt
 gebruik gemaakt van de [Built-in web
 server](https://www.php.net/manual/en/features.commandline.webserver.php),
-er is altijd een debugger actief etc. etc.).***
+er is altijd een debugger actief etc. etc.)._**
 
->❗Mocht je op een ARM machine zitten (zoals de nieuwe M1-chips van Apple)
+> ❗Mocht je op een ARM machine zitten (zoals de nieuwe M1-chips van Apple)
 > dan moet je een aantal dingen wijzigen in de setup. Zie [ARM ondersteuning](#arm-ondersteuning)
 
 ## Benodigde software
@@ -49,24 +54,24 @@ with GitHub Desktop'.
 Open met Visual Studio Code de map waarin je repository hebt gecloned.
 Met GitHub Desktop: klik op 'Open with Visual Studio Code'.
 
-Onderin Visual Studio Code zou een *terminal* open moeten staan. Als dit
+Onderin Visual Studio Code zou een _terminal_ open moeten staan. Als dit
 niet het geval is, kies in het menu van Visual Studio Code onder
-*Terminal* de optie *New terminal*.
+_Terminal_ de optie _New terminal_.
 
 ![Terminal Visual Studio Code](readme-images/vscode-terminal.png).
 
-Type in de terminal `docker compose up` en daarna *enter*.
+Type in de terminal `docker compose up` en daarna _enter_.
 
 Nu worden een database server en een web server aangemaakt. Daarna
 worden beide servers opgestart en de databases worden
 automatisch aangemaakt en gevuld. Tijdens dit proces zie je een
 behoorlijk aantal meldingen voorbij komen.
 
-*Soms krijg je bij stap 18/19 een foutmelding **ERROR \[18/19\] RUN pecl
+_Soms krijg je bij stap 18/19 een foutmelding **ERROR \[18/19\] RUN pecl
 install pdo_sqlsrv**. De installatie haalt bestanden van het internet
 af, de server die bij deze stap hoort wil nog wel een offline zijn.
 Wacht een paar minuten en probeer nog eens. Lukt het na enige keren nog
-niet, maak dan de cache leeg m.b.t. `docker system prune -f`.*
+niet, maak dan de cache leeg m.b.t. `docker system prune -f`._
 
 Uiteindelijk moet de volgende melding in beeld verschijnen
 
@@ -86,10 +91,10 @@ Zoiets als
 
 Test de webserver:
 
--   *It works!*: <http://localhost:8080> of
-    <http://localhost:8080/index.php>
--   *phpinfo*: <http://localhost:8080/phpinfo.php>
--   *Data uit de database*: <http://localhost:8080/componist-aantalstukken.php>
+- _It works!_: <http://localhost:8080> of
+  <http://localhost:8080/index.php>
+- _phpinfo_: <http://localhost:8080/phpinfo.php>
+- _Data uit de database_: <http://localhost:8080/componist-aantalstukken.php>
 
 ## Je eigen bestanden
 
@@ -102,14 +107,14 @@ Maak een nieuw bestand aan in de map `./applicatie/` en noem deze
 `test.php`. Open dit bestand met Visual Studio Code en voeg de volgende
 code toe:
 
-``` .php
+```.php
 <?php
 echo ('Hallo **je eigen naam**');
 ?>
 ```
 
 Roep de `test.php` in je webbrowser (op de localhost:8080). Als het goed
-is zie je de melding *Hallo, \*\*je eigen naam\*\** verschijnen.
+is zie je de melding \*Hallo, \*\*je eigen naam\*\*\* verschijnen.
 
 ### Beroepsproduct applicatie
 
@@ -127,7 +132,7 @@ met een database en gegevens in een webpagina plaatst.
 
 ### Database bekijken
 
-In het bestand *variables.env* staan de connectiegegevens voor de
+In het bestand _variables.env_ staan de connectiegegevens voor de
 database (de user is 'sa').
 
     DB_HOST="...."
@@ -141,18 +146,18 @@ Als je een melding krijgt dat de pagina niet bereikbaar is
 
 1.  Controleer in de URL of je http://localhost:8080 correct gespeld
     hebt.
-2.  Controleer of je in de URL het bestandsnaam (met *.php*) correct
+2.  Controleer of je in de URL het bestandsnaam (met _.php_) correct
     gespeld hebt.
 3.  Controleer of Docker opgestart is.
 4.  Controleer of de servers opgestart zijn (type in de VS-code terminal
     `docker compose ls -a` daar moet je docker-omgeving staan met als
-    status *running(2)*).
+    status _running(2)_).
 5.  Reboot je machine.
 
 ### This error may indicate that the docker daemon is not running.
 
-Als je de melding *error during connect: This error may indicate that
-the docker daemon is not running.* dan heb je docker niet opgestart.
+Als je de melding _error during connect: This error may indicate that
+the docker daemon is not running._ dan heb je docker niet opgestart.
 Start Docker op of reboot je machine.
 
 ### Problemen oplossen onder Windows
@@ -167,8 +172,8 @@ Heb je een te oude computer, dan kan je dit dialoogvenster krijgen:
 #### WSL 2
 
 Zodra je Docker geïnstalleerd hebt kan je nog enkele waarschuwingen
-krijgen over WSL 2 ([*Windows Subsystem for Linux
-2*](https://docs.microsoft.com/en-us/windows/wsl/about)). WSL 2 is een
+krijgen over WSL 2 ([_Windows Subsystem for Linux
+2_](https://docs.microsoft.com/en-us/windows/wsl/about)). WSL 2 is een
 extra onderdeel voor Windows waarmee Docker, Linux en andere
 technologieën efficiënt kunnen werken binnen Windows.
 
@@ -192,9 +197,9 @@ update](readme-images/Waarschuwing_WSL_2.png)
 Mocht je nog steeds problemen hebben tijdens of direct na de installatie
 van Docker Desktop, bestudeer dan de instructies van Docker Inc. onder
 het kopje
-[*Virtualization*](https://docs.docker.com/docker-for-windows/troubleshoot/#virtualization-must-be-enabled),
-alleen die onder de subkopjes *'VIRTUALIZATION MUST BE ENABLED'* en
-*'WSL 2 AND WINDOWS HOME'*.
+[_Virtualization_](https://docs.docker.com/docker-for-windows/troubleshoot/#virtualization-must-be-enabled),
+alleen die onder de subkopjes _'VIRTUALIZATION MUST BE ENABLED'_ en
+_'WSL 2 AND WINDOWS HOME'_.
 
 ## ARM ondersteuning
 
@@ -206,6 +211,7 @@ moet je iets wijzigen in de file [docker-compose.yml](./docker-compose.yml).
 Namelijk de `image` van de database_server:
 
 Waar nu staat:
+
 ```yaml
 version: "3.8"
 services:
@@ -213,7 +219,6 @@ services:
     image: mcr.microsoft.com/mssql/server
     env_file:
       - variables.env
-...
 ```
 
 Vervang je de regel:
@@ -234,7 +239,7 @@ van Felix Becker dien je te installeren.
 
 ### Installatie debugger
 
-Open aan de linkerkant van Visual Studio Code de extensions en zoek op *felixfbecker.php-debug*. Klik op install en wacht tot deze debugger is geïnstalleerd. Bij het opstarten 
+Open aan de linkerkant van Visual Studio Code de extensions en zoek op _felixfbecker.php-debug_. Klik op install en wacht tot deze debugger is geïnstalleerd. Bij het opstarten
 
 ![Installatie PHP Debug](readme-images/vscode-extention-php-debug.png)
 
