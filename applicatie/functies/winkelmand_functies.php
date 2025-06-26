@@ -26,17 +26,18 @@ function bestellingAfhandelen() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['naam']) && isset($_POST['adres'])) {
         $naam = $_POST['naam'];
         $adres = $_POST['adres'];
-        $message = [];
+        $errors = [];
 
         if (isset($_SESSION['winkelmand'])) {
-            $message[] = 'Bedankt voor uw bestelling, uw bestelnummer is ' . plaatsBestelling($naam, $adres) . '.';
+            $_SESSION['bestelnummer'] = plaatsBestelling($naam, $adres);
             unset($_SESSION['winkelmand']);
             header("Location: menu.php");
+            exit();
         } else {
-            $message[] = 'Je kan geen bestelling maken zonder producten.';
+            $errors[] = 'Je kan geen bestelling maken zonder producten.';
         }
 
-        return $message;
+        return $errors;
     }
 }
 
@@ -44,6 +45,7 @@ function annuleerBestelling() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['annuleer'])) {
         unset($_SESSION['winkelmand']);
         header('Location: menu.php');
+        exit();
     }
 }
 
@@ -62,7 +64,5 @@ function verwijderVanWinkelmand() {
         if (empty($_SESSION['winkelmand'])) {
             unset($_SESSION['winkelmand']);
         }
-
-        header("Refresh:0");
     }
 }

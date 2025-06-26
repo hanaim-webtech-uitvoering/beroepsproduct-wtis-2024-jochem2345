@@ -26,8 +26,8 @@ function valideerRegistratiegegevens($gebruikersnaam, $wachtwoord, $bevestig_wac
         $errors[] = 'Gebruikersnaam is al in gebruik.';
     }
 
-    if (strlen($wachtwoord) < 8 || !preg_match('/[A-Z]/', $wachtwoord) || !preg_match('/[0-9]/', $wachtwoord) || !preg_match('/[\W_]/', $wachtwoord)) {
-        $errors[] = 'Wachtwoord moet minimaal 8 tekens zijn en één hoofdletter, cijfer en speciaal teken bevatten.';
+    if (strlen($wachtwoord) < 8 || !preg_match('/[A-Z]/', $wachtwoord) || !preg_match('/[a-z]/', $wachtwoord) || !preg_match('/[0-9]/', $wachtwoord) || !preg_match('/[\W_]/', $wachtwoord)) {
+        $errors[] = 'Wachtwoord moet minimaal 8 tekens zijn en één hoofdletter, kleine letter, cijfer en speciaal teken bevatten.';
     }
 
     if ($wachtwoord != $bevestig_wachtwoord) {

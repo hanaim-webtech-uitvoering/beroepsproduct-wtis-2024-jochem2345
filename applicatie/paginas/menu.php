@@ -17,6 +17,13 @@ maakHeader($_SESSION['rol']);
 
 toevoegenAanWinkelmand();
 
-echo "<h2>Menu</h2>" . $menuHtml . "<h3><a href='winkelmand.php'>Naar winkelmand</a></h3>";
+$bestellingGemaakt = '';
+
+if (isset($_SESSION['bestelnummer'])) {
+    $bestellingGemaakt = "Bedankt voor uw bestelling, uw bestelnummer is " . $_SESSION['bestelnummer'] . ".";
+    unset($_SESSION['bestelnummer']);
+}
+
+echo "<h2>Menu</h2>" . $bestellingGemaakt . $menuHtml . "<h3><a href='winkelmand.php'>Naar winkelmand</a></h3>";
 
 maakFooter();

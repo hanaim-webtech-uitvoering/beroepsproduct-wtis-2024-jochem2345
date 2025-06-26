@@ -117,9 +117,3 @@ function maakFooter() {
         </html>
     HTML;
 }
-
-function controleerRol($rol) {
-    if ($_SESSION['rol'] !== $rol) {
-        header("Location: menu.php");
-    }
-}

@@ -13,7 +13,7 @@ function menuItemsNaarHtmlTable($menu) {
         $type = $item['type_id'];
         $ingredienten = $item['ingredients'];
 
-        $menuHtml .= "<tr><td>$naam</td><td>$prijs</td><td>$type</td><td>$ingredienten</td>";
+        $menuHtml .= "<tr><td>" . htmlspecialchars($naam) . "</td><td>" . htmlspecialchars($prijs) . "</td><td>" . htmlspecialchars($type) . "</td><td>" . htmlspecialchars($ingredienten ?? '') . "</td>";
 
         $menuHtml .= "
                 <td>
@@ -47,7 +47,7 @@ function winkelmandNaarHtml() {
             $totaleKosten += $prijs;
             $individuelePrijs = $prijs / $aantal;
 
-            $winkelmandHTML .= "<tr><td>$item</td><td>$aantal</td><td>&euro;" . number_format($prijs, 2) . "</td>";
+            $winkelmandHTML .= "<tr><td>" . htmlspecialchars($item) . "</td><td>" . htmlspecialchars($aantal) . "</td><td>&euro;" . number_format($prijs, 2) . "</td>";
 
             $winkelmandHTML .= "
                     <td>
@@ -73,28 +73,38 @@ function winkelmandNaarHtml() {
 }
 
 function bestellingenVanClientNaarHtml($bestellingen) {
-    $bestellingenHTML = "<table>";
+    if (!empty($bestellingen)) {
+        $bestellingenHTML = "<table>";
 
-    $bestellingenHTML .= "<tr><th>Bestelnummer</th><th>Datum en tijd</th><th>Status</th><th>Producten met aantal</th><th>Kosten</th></tr>";
+        $bestellingenHTML .= "<tr><th>Bestelnummer</th><th>Datum en tijd</th><th>Status</th><th>Producten met aantal</th><th>Kosten</th></tr>";
 
-    foreach ($bestellingen as $bestelling) {
-        $bestelnummer = $bestelling['order_id'];
-        $datetime = (new DateTime($bestelling['datetime']))->format('Y-m-d H:i');
-        $producten = $bestelling['products'];
-        $kosten = $bestelling['costs'];
-        $statusnumber = $bestelling['status'];
+        foreach ($bestellingen as $bestelling) {
+            $bestelnummer = $bestelling['order_id'];
+            $datetime = (new DateTime($bestelling['datetime']))->format('Y-m-d H:i');
+            $producten = $bestelling['products'];
+            $kosten = $bestelling['costs'];
+            $statusnumber = $bestelling['status'];
 
-        $status = match (true) {
-            $statusnumber == 1 => "Bereiden",
-            $statusnumber == 2 => "In de oven",
-            $statusnumber == 3 => "Klaar",
-        };
+            $status = match (true) {
+                $statusnumber == 1 => "Bereiden",
+                $statusnumber == 2 => "In de oven",
+                $statusnumber == 3 => "Klaar",
+            };
 
 
-        $bestellingenHTML .= "<tr><td>$bestelnummer</td><td>$datetime</td><td>$status</td><td>$producten</td><td>&euro;$kosten</td></tr>";
+            $bestellingenHTML .= "<tr>
+                <td>" . htmlspecialchars($bestelnummer) . "</td>
+                <td>" . htmlspecialchars($datetime) . "</td>
+                <td>" . htmlspecialchars($status) . "</td>
+                <td>" . htmlspecialchars($producten) . "</td>
+                <td>&euro;" . htmlspecialchars($kosten) . "</td>
+            </tr>";
+        }
+
+        $bestellingenHTML .= "</table>";
+    } else {
+        $bestellingenHTML = "<p>U heeft nog geen bestellingen gemaakt.</p>";
     }
-
-    $bestellingenHTML .= "</table>";
 
     return $bestellingenHTML;
 }
@@ -135,7 +145,15 @@ function alleBestellingenNaarHtml($bestellingen) {
 
         $bekijkDetails = "<a href='detailoverzicht.php?bestelnummer=$bestelnummer'>Bekijk details</a>";
 
-        $bestellingenHTML .= "<tr><td>$bestelnummer</td><td>$klant</td><td>$datetime</td><td>$status</td><td>$medewerker</td><td>$veranderStatus</td><td>$bekijkDetails</td></tr>";
+        $bestellingenHTML .= "<tr>
+            <td>" . htmlspecialchars($bestelnummer) . "</td>
+            <td>" . htmlspecialchars($klant) . "</td>
+            <td>" . htmlspecialchars($datetime) . "</td>
+            <td>" . htmlspecialchars($status) . "</td>
+            <td>" . htmlspecialchars($medewerker) . "</td>
+            <td>$veranderStatus</td>
+            <td>$bekijkDetails</td>
+        </tr>";
     }
 
     $bestellingenHTML .= "</table>";

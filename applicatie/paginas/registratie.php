@@ -11,7 +11,7 @@ maakHeader();
 <?php 
 if ($errors) {
     foreach ($errors as $error) {
-        echo "<p>$error</p>";
+        echo "<p>" . htmlspecialchars($error) . "</p>";
     }
 } 
 ?>
@@ -19,7 +19,7 @@ if ($errors) {
     <input type="hidden" name="rol" value="Client">
 
     <label for="username">Gebruikersnaam:</label>
-    <input type="text" id="username" name="gebruikersnaam" required>
+    <input type="text" id="username" name="gebruikersnaam" required value="<?= isset($_POST['gebruikersnaam']) ? htmlspecialchars($_POST['gebruikersnaam']) : '' ?>">
     
     <label for="password">Wachtwoord:</label>
     <input type="password" id="password" name="wachtwoord" required>
@@ -28,13 +28,13 @@ if ($errors) {
     <input type="password" id="confirm_password" name="bevestig_wachtwoord" required>
     
     <label for="first_name">Voornaam:</label>
-    <input type="text" id="first_name" name="voornaam" required>
+    <input type="text" id="first_name" name="voornaam" required value="<?= isset($_POST['voornaam']) ? htmlspecialchars($_POST['voornaam']) : '' ?>">
 
     <label for="last_name">Achternaam:</label>
-    <input type="text" id="last_name" name="achternaam" required>
+    <input type="text" id="last_name" name="achternaam" required value="<?= isset($_POST['achternaam']) ? htmlspecialchars($_POST['achternaam']) : '' ?>">
 
     <label for="adress">Adres:</label>
-    <input type="text" id="adress" name="adres">
+    <input type="text" id="adress" name="adres" value="<?= isset($_POST['adres']) ? htmlspecialchars($_POST['adres']) : '' ?>">
 
     <button type="submit">Registreren</button>
 </form>

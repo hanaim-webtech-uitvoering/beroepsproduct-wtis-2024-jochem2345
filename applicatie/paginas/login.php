@@ -12,7 +12,7 @@ maakHeader();
 <?php 
 if ($errors) {
     foreach ($errors as $error) {
-        echo "<p>$error</p>";
+        echo "<p>" . htmlspecialchars($error) . "</p>";
     }
 } 
 ?>

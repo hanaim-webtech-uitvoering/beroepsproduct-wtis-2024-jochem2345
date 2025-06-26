@@ -10,7 +10,7 @@ $winkelmandHtml = winkelmandNaarHtml();
 maakHtmlHead('Winkelmand');
 maakHeader($_SESSION['rol']);
 
-$messages = bestellingAfhandelen() ?? '';
+$errors = bestellingAfhandelen() ?? '';
 annuleerBestelling();
 verwijderVanWinkelmand();
 
@@ -22,9 +22,9 @@ if (isset($_SESSION['voornaam']) && isset($_SESSION['achternaam'])) {
 <h2>Winkelmand</h2>
 <?= 
 $winkelmandHtml; 
-if ($messages) {
-    foreach ($messages as $message) {
-        echo "<p>$message</p>";
+if ($errors) {
+    foreach ($errors as $error) {
+        echo "<p>$errors</p>";
     }
 } 
 ?>
