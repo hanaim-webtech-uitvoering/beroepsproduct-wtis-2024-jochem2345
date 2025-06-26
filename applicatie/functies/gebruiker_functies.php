@@ -46,9 +46,9 @@ function inlogAfhandelen() {
 
         if (empty($errors)) {
             $account = haalAccountOp($gebruikersnaam);
-            // $wachtwoordKlopt = controleerWachtwoord($gebruikersnaam, $wachtwoord);
+            $wachtwoordKlopt = controleerWachtwoord($gebruikersnaam, $wachtwoord);
 
-            if ($account /*&& $wachtwoordKlopt*/) {
+            if ($account && $wachtwoordKlopt) {
                 $_SESSION['gebruikersnaam'] = $account['username'];
                 $_SESSION['voornaam'] = $account['first_name'];
                 $_SESSION['achternaam'] = $account['last_name'];

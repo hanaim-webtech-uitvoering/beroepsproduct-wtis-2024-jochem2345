@@ -3,7 +3,7 @@ session_start();
 require_once '../data/bestelling_data.php';
 require_once '../functies/view_functies.php';
 require_once '../functies/layout_functies.php';
-require_once '../functies/winkelmand_functies.php';
+require_once '../functies/bestelling_functies.php';
 
 $winkelmandHtml = winkelmandNaarHtml();
 
@@ -24,7 +24,7 @@ if (isset($_SESSION['voornaam']) && isset($_SESSION['achternaam'])) {
 $winkelmandHtml; 
 if ($errors) {
     foreach ($errors as $error) {
-        echo "<p>$errors</p>";
+        echo "<p>" . htmlspecialchars($error) . "</p>";
     }
 } 
 ?>

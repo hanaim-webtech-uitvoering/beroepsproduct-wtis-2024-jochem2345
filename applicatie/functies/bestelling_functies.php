@@ -64,5 +64,7 @@ function verwijderVanWinkelmand() {
         if (empty($_SESSION['winkelmand'])) {
             unset($_SESSION['winkelmand']);
         }
+
+        header("Refresh:0");
     }
 }
